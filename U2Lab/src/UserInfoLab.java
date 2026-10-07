@@ -1,14 +1,26 @@
+import java.util.Scanner;
+
 public class UserInfoLab {
     public static void main(String[] args) {
         // Part 1
         // Create a Scanner for keyboard input
         // Ask the user to enter their first and last name and pass these
         // values to the generateUsername method and save the returned result.
-
+        Scanner scan = new Scanner(System.in);
+        String fName = "";
+        String lName = "";
+        String password = "";
+        System.out.println("Enter your first name");
+        fName = scan.nextLine();
+        System.out.println("Enter your last name");
+        lName = scan.nextLine();
+        String username = generateUsername(fName, lName);
         // Part 2
         // Ask the user to enter a password and pass this value to the validatePassword method.
         // The validatePassword method will check if the password meets the criteria:
-
+        System.out.println("Enter your password");
+        password = scan.nextLine();
+        boolean ifWorks = validatePassword(password);
         // Part 3
         // If the user entered a valid password in step 2, then ask the user to enter their
         // credit card number and pass this value to the maskCreditCard method.
@@ -20,13 +32,49 @@ public class UserInfoLab {
 
     }
 
-    public static String generateUsername(String firstName, String lastName) {
-        // Fill in this method and return an appropriate username
-        return "";
+    public static String generateUsername(String fName, String lName) {
+        String Username = "";
+        if (fName.length()>3){
+            Username += fName.substring(0,3);
+        }
+        else{
+            Username+=fName;
+        }
+        if (lName.length()>3){
+            Username += lName.substring(0,3);
+        }
+        else{
+            Username+=lName;
+        }
+        return Username;
     }
     public static boolean validatePassword(String password) {
-        // Fill in this method and return true/false if the password is valid
-        return true;
+        int works = 0;
+        int firstCheck;
+        if (password.length() < 8) {
+            System.out.println("The password isn't long enough");
+        } else {
+            works++;
+        }
+        firstCheck = works;
+        for (int i = 0; i < password.length(); i++) {
+            if (password.substring(i, i + 1).equals(password.substring(i, i + 1).toUpperCase())) {
+                works++;
+            }
+        }
+        if (firstCheck == works) {
+            System.out.println("The password must have a capitol letter");
+        }
+        int secondCheck = works;
+        for (int i = 0; i < password.length(); i++) {
+            if (containsDigit(password.substring(i, i + 1))==true){
+                works++;
+            }
+        }
+        if (firstCheck == works) {
+            System.out.println("The password must have a digit");
+        }
+        if(works >= 3);
     }
     public static String maskCreditCard(String creditCardNumber) {
         // Fill in this method and if the credit card is valid, return a masked CC
